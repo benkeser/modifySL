@@ -13,7 +13,43 @@
 #' @param newMethod A \code{list} structured as a \code{SuperLearner} method. See \code{?write.method.template}.
 #' @param obsWeights The weights used to compute the original Super Learner fit. Because these weights are not
 #' returned with the \code{SuperLearner} object, they must be input again here. 
+#' @param verbose Passed to the method functions to print option messages. 
+#' @param ... Other options. Currently not used.
 #' 
+#' @return An object of \class{SuperLearner} with modifications recorded. See \code{?SuperLearner} for details.
+#' 
+#' @examples
+#' n <- 100
+#' X <- data.frame(x1=runif(n), x2=rnorm(n), x3=rbinom(n,1,0.5))
+#' Y <- rnorm(n, X$x1 + X$x3)
+#' 
+#' # fit a super learner with library of three
+#' set.seed(1234)
+#' sl1 <- SuperLearner(Y=Y, X=X, SL.library=c("SL.glm","SL.gam","SL.mean"))
+#' 
+#' # recompute super learner omitting SL.gam
+#' sl2 <- modifySL(fit = sl1, newLibrary = c("SL.glm_All","SL.mean_All"))
+#' 
+#' # should be the same as this super learner 
+#' set.seed(1234)
+#' sl3 <- SuperLearner(Y=Y, X=X, SL.library=c("SL.glm","SL.mean"))
+#' 
+#' # can also modify super learner method
+#' sl4 <- modifySL(fit = sl1, newMethod = "method.CC_LS")
+#' 
+#' # should be the same as this 
+#' set.seed(1234)
+#' sl5 <- SuperLearner(Y=Y, X=X, SL.library = c("SL.glm","SL.gam","SL.mean"), 
+#' method = "method.CC_LS")
+#' 
+#' # can also modify both simultaneously
+#' sl6 <- modifySL(fit = sl1, newLibrary = c("SL.glm_All","SL.mean_All"),
+#' newMethod = "method.CC_LS")
+#' 
+#' # same as this
+#' set.seed(1234)
+#' sl7 <- SuperLearner(Y=Y, X=X, SL.library = c("SL.glm","SL.mean"), 
+#' method = "method.CC_LS")
 
 modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
                      obsWeights = rep(1, length(fit$SL.predict)),verbose = FALSE, 
@@ -57,7 +93,7 @@ modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
     coef <- getCoef$coef
     names(coef) <- fit$libraryNames[keepInd]
 
-    getPred <- newMethod$computePred(predY = fit$library.predict[,keepInd,drop=FALSE], coef = coef, 
+    getPred <- newMethod$computePred(predY = fit$SL.library.predict[,keepInd,drop=FALSE], coef = coef, 
             control = control)
 
     #-----------------------------------

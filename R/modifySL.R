@@ -116,7 +116,7 @@ modifySL <- function(fit, Y, newLibrary = fit$libraryNames, newMethod = fit$meth
     screenNames <- row.names(fit$whichScreen)
 	keepScreen <- rep(NA, length(screenNames))
 	for(i in 1:length(screenNames)){
-	    keepScreen[i] <- any(grepl(screenNames[i], fit1$libraryNames[keepInd]))
+	    keepScreen[i] <- any(grepl(screenNames[i], fit$libraryNames[keepInd]))
 	}
 	out$whichScreen <- fit$whichScreen[keepScreen,,drop=FALSE]
 	out$metaOptimizer <- getCoef$optimizer

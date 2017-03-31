@@ -17,7 +17,7 @@
 #' @param ... Other options. Currently not used.
 #' 
 #' @return An object of \class{SuperLearner} with modifications recorded. See \code{?SuperLearner} for details.
-#' 
+#' @export
 #' @examples
 #' n <- 100
 #' X <- data.frame(x1=runif(n), x2=rnorm(n), x3=rbinom(n,1,0.5))

@@ -40,21 +40,21 @@ Y <- rnorm(n, X$x1 + X$x3)
 
 # fit a super learner with library of three
 set.seed(1234)
-sl1 <- SuperLearner(Y=Y, X=X, library=c("SL.glm","SL.gam","SL.mean"))
+sl1 <- SuperLearner(Y=Y, X=X, SL.library=c("SL.glm","SL.gam","SL.mean"))
 
 # recompute super learner omitting SL.gam
 sl2 <- modifySL(fit = sl1, newLibrary = c("SL.glm_All","SL.mean_All"))
 
 # should be the same as this super learner 
 set.seed(1234)
-sl3 <- SuperLearner(Y=Y, X=X, library=c("SL.glm","SL.mean"))
+sl3 <- SuperLearner(Y=Y, X=X, SL.library=c("SL.glm","SL.mean"))
 
 # can also modify super learner method
 sl4 <- modifySL(fit = sl1, newMethod = "method.CC_LS")
 
 # should be the same as this 
 set.seed(1234)
-sl5 <- SuperLearner(Y=Y, X=X, library = c("SL.glm","SL.gam","SL.mean"), 
+sl5 <- SuperLearner(Y=Y, X=X, SL.library = c("SL.glm","SL.gam","SL.mean"), 
 method = "method.CC_LS")
 
 # can also modify both simultaneously
@@ -63,7 +63,7 @@ newMethod = "method.CC_LS")
 
 # same as this
 set.seed(1234)
-sl7 <- SuperLearner(Y=Y, X=X, library = c("SL.glm","SL.mean"), 
+sl7 <- SuperLearner(Y=Y, X=X, SL.library = c("SL.glm","SL.mean"), 
 method = "method.CC_LS")
 }
 

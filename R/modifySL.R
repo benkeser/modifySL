@@ -16,7 +16,7 @@
 #' @param verbose Passed to the method functions to print option messages. 
 #' @param ... Other options. Currently not used.
 #' 
-#' @return An object of \class{SuperLearner} with modifications recorded. See \code{?SuperLearner} for details.
+#' @return An object of class \code{SuperLearner} with modifications recorded. See \code{?SuperLearner} for details.
 #' @export
 #' @examples
 #' n <- 100
@@ -104,7 +104,8 @@ modifySL <- function(fit, Y, newLibrary = fit$libraryNames, newMethod = fit$meth
     out$call <- call
     out$originalCall <- fit$call
     out$libraryNames <- fit$libraryNames[keepInd]
-    out$SL.library <- newLibrary
+    out$SL.library$library <- out$SL.library$library[keepInd,]
+
     out$SL.predict <- getPred
     out$coef <- coef
     out$library.predict <- fit$library.predict[,keepInd,drop=FALSE]

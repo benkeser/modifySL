@@ -51,7 +51,7 @@
 #' sl7 <- SuperLearner(Y=Y, X=X, SL.library = c("SL.glm","SL.mean"), 
 #' method = "method.CC_LS")
 
-modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
+modifySL <- function(fit, Y, newLibrary = fit$libraryNames, newMethod = fit$method,
                      obsWeights = rep(1, length(fit$SL.predict)),verbose = FALSE, 
                      ...){
 	call <- match.call()
@@ -87,7 +87,7 @@ modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
     #-----------------------------------
     # Compute modified coefficients
     #-----------------------------------
-    getCoef <- newMethod$computeCoef(Z = Zmod, Y = fit$Y, libraryNames = fit$libraryNames[keepInd], 
+    getCoef <- newMethod$computeCoef(Z = Zmod, Y = Y, libraryNames = fit$libraryNames[keepInd], 
                                   obsWeights = obsWeights, control = fit$control, 
                                   verbose = verbose)
     coef <- getCoef$coef

@@ -72,8 +72,8 @@ modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
     if (!is.list(newMethod)) {
         stop("method is not in the appropriate format. Check out help('method.template')")
     }
-    if (!is.null(method$require)) {
-        sapply(method$require, function(x) require(force(x), 
+    if (!is.null(newMethod$require)) {
+        sapply(newMethod$require, function(x) require(force(x), 
             character.only = TRUE))
     }
 

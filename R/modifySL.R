@@ -87,7 +87,7 @@ modifySL <- function(fit, newLibrary = fit$libraryNames, newMethod = fit$method,
     #-----------------------------------
     # Compute modified coefficients
     #-----------------------------------
-    getCoef <- newMethod$computeCoef(Z = Zmod, Y = Y, libraryNames = fit$libraryNames[keepInd], 
+    getCoef <- newMethod$computeCoef(Z = Zmod, Y = fit$Y, libraryNames = fit$libraryNames[keepInd], 
                                   obsWeights = obsWeights, control = fit$control, 
                                   verbose = verbose)
     coef <- getCoef$coef

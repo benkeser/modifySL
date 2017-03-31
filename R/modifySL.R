@@ -93,7 +93,7 @@ modifySL <- function(fit, Y, newLibrary = fit$libraryNames, newMethod = fit$meth
     coef <- getCoef$coef
     names(coef) <- fit$libraryNames[keepInd]
 
-    getPred <- newMethod$computePred(predY = fit$SL.library.predict[,keepInd,drop=FALSE], coef = coef, 
+    getPred <- newMethod$computePred(predY = fit$library.predict[,keepInd,drop=FALSE], coef = coef, 
             control = control)
 
     #-----------------------------------
